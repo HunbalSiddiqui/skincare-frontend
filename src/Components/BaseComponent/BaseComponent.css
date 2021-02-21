@@ -1,0 +1,30 @@
+.basecomponent-wrapper{
+    display: grid;
+    grid-template-columns: minmax(0rem,1fr) minmax(min-content,1960px) minmax(0rem,1fr);
+    grid-template-rows: minmax(100vh,min-content);
+    grid-template-areas: '. basecomponent-container .';
+}
+.basecomponent-container{
+    grid-area: basecomponent-container;
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    grid-template-rows: 10% minmax(80%,min-content) 10%;
+    grid-template-areas: 'basecomponent-container-nav basecomponent-container-tabs basecomponent-container-right-nav'
+                         'basecomponent-container-nav basecomponent-container-content basecomponent-container-right-nav'
+                         'basecomponent-container-nav basecomponent-container-footer basecomponent-container-right-nav';
+}
+.basecomponent-container-nav{
+    grid-area: basecomponent-container-nav;
+}
+.basecomponent-container-tabs{
+    grid-area: basecomponent-container-tabs;
+}
+.basecomponent-container-right-nav{
+    grid-area: basecomponent-container-right-nav;
+}
+.basecomponent-container-content{
+    grid-area: basecomponent-container-content;
+}
+.basecomponent-container-footer{
+    grid-area: basecomponent-container-footer;
+}
