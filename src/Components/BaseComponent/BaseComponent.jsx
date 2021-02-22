@@ -1,11 +1,14 @@
 import React from 'react'
+import BaseComponentLeftNav from '../BaseComponentLeftNav/BaseComponentLeftNav'
 import './BaseComponent.css'
-import FullWidthTabs from './BaseComponentTab/BaseComponentTab'
+import FullWidthTabs from '../BaseComponentTab/BaseComponentTab'
 function BaseComponent() {
     return (
         <div className="basecomponent-wrapper">
             <div className="basecomponent-container">
-                <div className="basecomponent-container-nav"></div>
+                <div className="basecomponent-container-nav">
+                    <BaseComponentLeftNav/>
+                </div>
                 <div className="basecomponent-container-tabs">
                     <FullWidthTabs/>
                 </div>
