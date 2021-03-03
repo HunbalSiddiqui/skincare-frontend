@@ -8,23 +8,41 @@
     grid-area: basecomponent-container;
     display: grid;
     grid-template-columns: 5% 90% 5%;
-    grid-template-rows: 10% minmax(80%,min-content) 10%;
+    grid-template-rows: 10vh minmax(85vh,min-content) 5vh;
     grid-template-areas: 'basecomponent-container-nav basecomponent-container-tabs basecomponent-container-right-nav'
                          'basecomponent-container-nav basecomponent-container-content basecomponent-container-right-nav'
                          'basecomponent-container-nav basecomponent-container-footer basecomponent-container-right-nav';
 }
 .basecomponent-container-nav{
     grid-area: basecomponent-container-nav;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 5%;
 }
 .basecomponent-container-tabs{
     grid-area: basecomponent-container-tabs;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 }
 .basecomponent-container-right-nav{
     grid-area: basecomponent-container-right-nav;
 }
 .basecomponent-container-content{
     grid-area: basecomponent-container-content;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(20rem,min-content));
+    /* grid-template-rows: minmax(30vh,min-content); */
+    grid-template-rows: min-content;
+    grid-gap: 2rem;
+    box-sizing: border-box;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    /* overflow-y: auto; */
+    z-index: 1;
 }
 .basecomponent-container-footer{
     grid-area: basecomponent-container-footer;
+    color : #4C4B4B;
 }

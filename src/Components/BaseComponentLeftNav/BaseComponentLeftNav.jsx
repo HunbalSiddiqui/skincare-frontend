@@ -1,11 +1,11 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AccessAlarm,
   ThreeDRotation,
   MenuOutlined,
   CloseRounded,
-  ChevronLeft
+  ChevronLeft,
 } from "@material-ui/icons";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -15,7 +15,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import clsx from "clsx";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "center",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   closeIcon: {
     display: "flex",
     flexFlow: "column",
-    alignItems: "flex-end"
-  }
+    alignItems: "flex-end",
+  },
 }));
 
 function BaseComponentLeftNav() {
