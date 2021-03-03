@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   hamIcon: {
     cursor: "pointer",
+    position: "sticky",
+    top: "2rem"
   },
   drawer: {
     width: drawerWidth,
