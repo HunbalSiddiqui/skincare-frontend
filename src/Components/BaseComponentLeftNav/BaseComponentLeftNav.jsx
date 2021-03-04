@@ -1,12 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  AccessAlarm,
-  ThreeDRotation,
-  MenuOutlined,
-  CloseRounded,
-  ChevronLeft,
-} from "@material-ui/icons";
+import { MenuOutlined, ChevronLeft } from "@material-ui/icons";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
@@ -15,7 +9,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
+import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
+import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
+import FeedbackRoundedIcon from "@material-ui/icons/FeedbackRounded";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   hamIcon: {
     cursor: "pointer",
     position: "sticky",
-    top: "2rem"
+    top: "2rem",
   },
   drawer: {
     width: drawerWidth,
@@ -87,10 +84,14 @@ function BaseComponentLeftNav() {
         </div>
 
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Login", "Create Your Account"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? (
+                  <PersonAddRoundedIcon />
+                ) : (
+                  <AccountCircleRoundedIcon />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -98,10 +99,14 @@ function BaseComponentLeftNav() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Report Your Issue", "Suggestion"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index % 2 === 0 ? (
+                  <ReportProblemRoundedIcon />
+                ) : (
+                  <FeedbackRoundedIcon />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
