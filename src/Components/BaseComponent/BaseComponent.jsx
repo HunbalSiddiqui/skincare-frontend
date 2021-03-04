@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import BaseComponentLeftNav from "../BaseComponentLeftNav/BaseComponentLeftNav";
 import "./BaseComponent.css";
 import FullWidthTabs from "../BaseComponentTab/BaseComponentTab";
+import KeyboardArrowUpOutlinedIcon from "@material-ui/icons/KeyboardArrowUpOutlined";
+import KeyboardArrowDownOutlinedIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
+import * as Scroll from 'react-scroll';
 import CardSm from "../CardSm/CardSm";
 import one from "../../Assets/Images/one.jpg";
 import two from "../../Assets/Images/two.jpg";
@@ -27,6 +30,7 @@ function BaseComponent() {
     ten,
   ]);
   let count = 0;
+  var scroll    = Scroll.animateScroll;
   return (
     <div className="basecomponent-wrapper">
       <div className="basecomponent-container">
@@ -36,10 +40,12 @@ function BaseComponent() {
         <div className="basecomponent-container-tabs">
           <FullWidthTabs />
         </div>
-        <div className="basecomponent-container-right-nav flex-col-end"></div>
+        <div className="basecomponent-container-right-nav flex-col">
+          <KeyboardArrowUpOutlinedIcon className="pointer" fontSize="large" onClick={()=>{scroll.scrollToTop();}} style={{position: "sticky", bottom: "55vh"}}/>
+          <KeyboardArrowDownOutlinedIcon className="pointer" fontSize="large" onClick={()=>{scroll.scrollToBottom();}} style={{position: "sticky", top: "55vh"}}/>
+        </div>
         <div className="bg-silver basecomponent-container-content flex">
           {images.map((image, index) => {
-            // console.log(count%2===0)
             count++;
             return count % 2 === 0 ? (
               <CardSm image={image} key={index} type={"lg"} />
