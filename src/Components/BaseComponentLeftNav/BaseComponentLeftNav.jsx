@@ -13,6 +13,7 @@ import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import FeedbackRoundedIcon from "@material-ui/icons/FeedbackRounded";
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,13 +88,15 @@ function BaseComponentLeftNav() {
           {["Login", "Create Your Account"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? (
+                {index % 2 !== 0 ? (
                   <PersonAddRoundedIcon />
                 ) : (
                   <AccountCircleRoundedIcon />
                 )}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <Link to={index % 2 !== 0 ? `/signup` : `/signin` } style={{color:"inherit"}}>
+                <ListItemText primary={text} />
+              </Link>
             </ListItem>
           ))}
         </List>
