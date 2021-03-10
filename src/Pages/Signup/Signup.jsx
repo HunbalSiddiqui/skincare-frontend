@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
-import {Link as RouteLink} from "react-router-dom";
+import { Link as RouteLink, useHistory } from "react-router-dom";
+import { userSignup } from "../../Server/APIServerCalls";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,6 +50,39 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  let history = useHistory();
+  const [formInput, setformInput] = React.useState({
+    name: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+
+  const handleFormInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setformInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSignup = async () => {
+    const userDetails = {
+      email: formInput.email,
+      name: formInput.name + " " + formInput.lastName,
+      password: formInput.password,
+      phone: formInput.phone,
+    };
+    try {
+      const response = await userSignup(userDetails);
+      if (!response.type) alert(`${response.Message}`);
+      else history.push("/signin");
+    } catch (error) {
+      alert(`${error}`)
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -64,14 +98,17 @@ export default function SignUp() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
-                name="firstName"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="name"
                 label="First Name"
-                autoFocus
+                name="name"
+                onChange={(e) => {
+                  handleFormInput(e);
+                }}
+                value={formInput.name}
+                autoComplete="fname"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -82,6 +119,10 @@ export default function SignUp() {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                onChange={(e) => {
+                  handleFormInput(e);
+                }}
+                value={formInput.lastName}
                 autoComplete="lname"
               />
             </Grid>
@@ -93,6 +134,10 @@ export default function SignUp() {
                 id="email"
                 label="Email Address"
                 name="email"
+                onChange={(e) => {
+                  handleFormInput(e);
+                }}
+                value={formInput.email}
                 autoComplete="email"
               />
             </Grid>
@@ -105,7 +150,27 @@ export default function SignUp() {
                 label="Password"
                 type="password"
                 id="password"
+                onChange={(e) => {
+                  handleFormInput(e);
+                }}
+                value={formInput.password}
                 autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="phone"
+                label="Contact"
+                name="phone"
+                type="number"
+                onChange={(e) => {
+                  handleFormInput(e);
+                }}
+                value={formInput.phone}
+                autoComplete="phone"
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,11 +181,11 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSignup}
           >
             Sign Up
           </Button>

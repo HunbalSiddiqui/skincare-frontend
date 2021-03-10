@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
   cardMedia: {
     paddingTop: "56.25%", // 16:9
   },
+  favIcon:{
+    cursor: "pointer"
+  },
   cardContent: {
     flexGrow: 1,
   },
@@ -60,13 +63,16 @@ const useStyles = makeStyles((theme) => ({
 function BlogCart(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(-1);
-
+  const [addedToFav, setaddedToFav] = React.useState(false)
   const handleExpandClick = () => {
     setExpanded(expanded === props.index ? false : props.index)
   };
+  const addToFavourites = () => {
+    setaddedToFav(!addedToFav)
+  }
   return (
-    <Grid item xs={12} sm={6}>
-      <Card className={classes.card}>
+    <Grid item xs={12} sm={6} >
+      <Card className={classes.card} onDoubleClick={addToFavourites}>
         <CardHeader
           avatar={
             <Avatar aria-label="icon" className={classes.avatar}>
@@ -92,7 +98,7 @@ function BlogCart(props) {
         <Grid container xs={12}>
           <Grid item xs={10}>
             <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+              <FavoriteIcon style={{ color: addedToFav ? "red" : '#CAC9C9'}} className={classes.favIcon} onClick={addToFavourites} />
             </IconButton>
           </Grid>
           <Grid container xs={2} justify="flex-end">

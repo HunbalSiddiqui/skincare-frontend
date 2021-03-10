@@ -41,7 +41,7 @@ function Header() {
     setopenDrawer(command);
   };
 
-  const list = (anchor) => (
+  const list = () => (
     <div
       className={classes.list}
       onClick={() => {
