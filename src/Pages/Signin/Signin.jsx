@@ -12,6 +12,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
+import { Link as RouteLink } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -97,16 +99,27 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body1">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signup" variant="body1">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
+          <RouteLink to={`/`}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              className={classes.submit}
+              startIcon={<KeyboardBackspaceRoundedIcon />}
+            >
+              Go Back
+            </Button>
+          </RouteLink>
         </form>
       </div>
       <Box mt={8}>
