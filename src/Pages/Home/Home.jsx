@@ -1,24 +1,12 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
-import CardHeader from "@material-ui/core/CardHeader";
-import { Avatar, IconButton } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
-import Collapse from "@material-ui/core/Collapse";
 import BlogCart from "../../Components/BlogCart/BlogCart";
 
 function Copyright() {
@@ -40,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     marginRight: theme.spacing(2),
+    cursor: "pointer",
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
@@ -83,26 +72,13 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container maxWidth="md">
             <Typography
               component="h1"
               variant="h2"
@@ -139,11 +115,11 @@ export default function Album() {
           </Container>
         </div>
 
-        <Container className={classes.cardGrid} maxWidth="md">
+        <Container className={classes.cardGrid} width="md" maxWidth="lg">
           {/* End hero unit */}
           <Grid container spacing={4}>
             {cards.map((card, index) => (
-              <BlogCart key={index} index={card}/>
+              <BlogCart key={index} index={card} />
             ))}
           </Grid>
         </Container>
