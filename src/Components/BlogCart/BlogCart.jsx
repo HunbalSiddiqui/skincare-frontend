@@ -96,13 +96,13 @@ function BlogCart(props) {
             This is a media card. Use this section to describe the content.
           </Typography>
         </CardContent>
-        <Grid container xs={12}>
+        <Grid container item xs={12}>
           <Grid item xs={10}>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon style={{ color: addedToFav ? "red" : '#CAC9C9'}} className={classes.favIcon} onClick={addToFavourites} />
+            <IconButton aria-label="add to favorites" onClick={addToFavourites}>
+              <FavoriteIcon style={{ color: addedToFav ? "red" : '#CAC9C9'}} className={classes.favIcon} />
             </IconButton>
           </Grid>
-          <Grid container xs={2} justify="flex-end">
+          <Grid container item xs={2} justify="flex-end">
             <IconButton
               className={clsx(classes.expand, {
                 // [classes.expandOpen]: expanded,

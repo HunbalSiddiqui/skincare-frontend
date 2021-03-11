@@ -17,16 +17,23 @@ export const userSignup = (userDetails) => {
 
 
 export const userSignin = (credentials) => {
-    return axios.post(`http://localhost:8000/api/v1/users/auth/signin`,
+    return axios.post(`${API}/users/auth/signin`,
             credentials)
         .then((response) => {
-            console.log(response.data)
             return response.data
         })
         .catch((err) => {
             return err
         })
 }
+
+// export const userSignout = (next) => {
+//     return axios.get(`${API}/users/auth/signout`)
+//     .then((response)=>{
+
+//     })
+    
+// }
 
 
 export const Authenticate = (user, next) => {
@@ -37,11 +44,11 @@ export const Authenticate = (user, next) => {
 }
 
 export const isAuthenticated = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") {
         return false
     }
     if (localStorage.getItem("jwt")) {
-        return true
+        return JSON.parse(localStorage.getItem("jwt"))
     }
     return false
 }

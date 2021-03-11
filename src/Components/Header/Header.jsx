@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -16,6 +16,8 @@ import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import FeedbackRoundedIcon from "@material-ui/icons/FeedbackRounded";
 import { Link as RouteLink } from "react-router-dom";
+import { connect } from "react-redux";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,14 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header(props) {
   const classes = useStyles();
   const [openDrawer, setopenDrawer] = useState(false);
-
+  const [currentUser, setcurrentUser] = useState(null);
   const handleDrawer = (command) => {
     setopenDrawer(command);
   };
-
+  useEffect(() => {
+    setcurrentUser((prevState) => ({ currentUser: props.currentUser }));
+    return () => {};
+  }, [props.currentUser]);
   const list = () => (
     <div
       className={classes.list}
@@ -53,6 +58,7 @@ function Header() {
           <RouteLink
             to={index % 2 !== 0 ? `/signup` : `/signin`}
             style={{ color: "inherit" }}
+            key={index}
           >
             <ListItem button key={text}>
               <ListItemIcon>
@@ -83,8 +89,20 @@ function Header() {
           </ListItem>
         ))}
       </List>
+      <Divider />
+      {currentUser
+        ? ["Logout"].map((text, index) => (
+            <ListItem button key={index}>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))
+        : null}
     </div>
   );
+
   return (
     <div className={classes.root}>
       <AppBar position="relative">
@@ -113,4 +131,10 @@ function Header() {
   );
 }
 
-export default Header;
+var mapStateToProps = (state) => {
+  return {
+    currentUser: state.userReducer.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(Header);

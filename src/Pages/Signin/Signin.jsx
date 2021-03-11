@@ -15,7 +15,8 @@ import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
 import { Link as RouteLink, useHistory } from "react-router-dom";
 import { Authenticate, userSignin } from "../../Server/APIServerCalls";
-
+import { connect } from "react-redux";
+import { setCurrentUser } from "../../Redux/userReducer/userReducerActions";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,14 +50,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
   let history = useHistory();
   const [formInput, setformInput] = React.useState({
     email: "",
     password: "",
   });
-  const [loader, setLoader] = React.useState(false)
+  const [loader, setLoader] = React.useState(false);
 
   const handleFormInput = (e) => {
     const name = e.target.name;
@@ -67,8 +68,8 @@ export default function SignIn() {
     }));
   };
 
-  const handleSignin = async() => {
-    setLoader(true)
+  const handleSignin = async () => {
+    setLoader(true);
     const userDetails = {
       email: formInput.email,
       password: formInput.password,
@@ -76,16 +77,16 @@ export default function SignIn() {
     try {
       const response = await userSignin(userDetails);
       if (!response.type) alert(`${response.Message}`);
-      else 
-      {
-        Authenticate({user:response.user, token:response.token },()=>{
+      else {
+        Authenticate({ user: response.user, token: response.token }, () => {
+          props.setCurrentUser({ user: response.user, token: response.token })
           history.push("/");
-        })
+        });
       }
     } catch (error) {
-      alert(`${error}`)
+      alert(`${error}`);
     }
-  }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -107,7 +108,9 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             value={formInput.email}
-            onChange={(e)=>{handleFormInput(e)}}
+            onChange={(e) => {
+              handleFormInput(e);
+            }}
             autoFocus
           />
           <TextField
@@ -121,7 +124,9 @@ export default function SignIn() {
             id="password"
             autoComplete="current-password"
             value={formInput.passowrd}
-            onChange={(e)=>{handleFormInput(e)}}
+            onChange={(e) => {
+              handleFormInput(e);
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -167,3 +172,8 @@ export default function SignIn() {
     </Container>
   );
 }
+
+var actions = {
+  setCurrentUser,
+};
+export default connect(null, actions)(SignIn);
