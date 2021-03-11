@@ -15,6 +15,7 @@ import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
 import { Link as RouteLink, useHistory } from "react-router-dom";
 import { userSignup } from "../../Server/APIServerCalls";
+import Loader from "../../Components/Loader/Loader";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -58,7 +59,7 @@ export default function SignUp() {
     phone: "",
     password: "",
   });
-
+  const [loader, setLoader] = React.useState(false)
   const handleFormInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -69,6 +70,7 @@ export default function SignUp() {
   };
 
   const handleSignup = async () => {
+    setLoader(true)
     const userDetails = {
       email: formInput.email,
       name: formInput.name + " " + formInput.lastName,
@@ -82,10 +84,12 @@ export default function SignUp() {
     } catch (error) {
       alert(`${error}`)
     }
+    setLoader(false)
   };
 
   return (
     <Container component="main" maxWidth="xs">
+      {loader ? <Loader /> :  null}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

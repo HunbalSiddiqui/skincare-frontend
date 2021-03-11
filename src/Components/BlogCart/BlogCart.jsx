@@ -71,8 +71,8 @@ function BlogCart(props) {
     setaddedToFav(!addedToFav)
   }
   return (
-    <Grid item xs={12} sm={6} >
-      <Card className={classes.card} onDoubleClick={addToFavourites}>
+    <Grid item xs={12} md={6}>
+      <Card className={classes.card}>
         <CardHeader
           avatar={
             <Avatar aria-label="icon" className={classes.avatar}>
@@ -86,6 +86,7 @@ function BlogCart(props) {
           className={classes.cardMedia}
           image="https://source.unsplash.com/random"
           title="Image title"
+          onClick={addToFavourites}
         />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">

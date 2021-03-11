@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useHistory } from "react-router-dom";
+import { Authenticate, userSignin } from "../../Server/APIServerCalls";
 
 function Copyright() {
   return (
@@ -50,7 +51,41 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  let history = useHistory();
+  const [formInput, setformInput] = React.useState({
+    email: "",
+    password: "",
+  });
+  const [loader, setLoader] = React.useState(false)
 
+  const handleFormInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setformInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSignin = async() => {
+    setLoader(true)
+    const userDetails = {
+      email: formInput.email,
+      password: formInput.password,
+    };
+    try {
+      const response = await userSignin(userDetails);
+      if (!response.type) alert(`${response.Message}`);
+      else 
+      {
+        Authenticate({user:response.user, token:response.token },()=>{
+          history.push("/");
+        })
+      }
+    } catch (error) {
+      alert(`${error}`)
+    }
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -71,6 +106,8 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            value={formInput.email}
+            onChange={(e)=>{handleFormInput(e)}}
             autoFocus
           />
           <TextField
@@ -83,17 +120,19 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={formInput.passowrd}
+            onChange={(e)=>{handleFormInput(e)}}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSignin}
           >
             Sign In
           </Button>
