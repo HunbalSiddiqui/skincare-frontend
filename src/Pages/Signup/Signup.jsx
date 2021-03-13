@@ -13,9 +13,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
-import { Link as RouteLink, useHistory } from "react-router-dom";
+import { Link as RouteLink, Redirect, useHistory } from "react-router-dom";
 import { userSignup } from "../../Server/APIServerCalls";
 import Loader from "../../Components/Loader/Loader";
+import { connect } from "react-redux";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+function SignUp(props) {
   const classes = useStyles();
   let history = useHistory();
   const [formInput, setformInput] = React.useState({
@@ -68,13 +69,7 @@ export default function SignUp() {
       [name]: value,
     }));
   };
-  fetch(`https://jsonplaceholder.typicode.com/users`)
-  .then((response)=>{
-    console.log(response)
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
+
   const handleSignup = async () => {
     setLoader(true)
     const userDetails = {
@@ -94,6 +89,7 @@ export default function SignUp() {
   };
 
   return (
+    !props.userReducer.currentUser ?
     <Container component="main" maxWidth="xs">
       {loader ? <Loader /> :  null}
       <CssBaseline />
@@ -223,5 +219,16 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
+    :
+    <Redirect to={`/`}/>
+
   );
 }
+
+var mapStateToProps = (state) => {
+  return {
+    userReducer: state.userReducer
+  }
+}
+
+export default connect(mapStateToProps)(SignUp);

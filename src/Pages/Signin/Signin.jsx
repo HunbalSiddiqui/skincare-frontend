@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
-import { Link as RouteLink, useHistory } from "react-router-dom";
+import { Link as RouteLink, Redirect, useHistory } from "react-router-dom";
 import { Authenticate, userSignin } from "../../Server/APIServerCalls";
 import { connect } from "react-redux";
 import { setCurrentUser } from "../../Redux/userReducer/userReducerActions";
@@ -88,6 +88,7 @@ function SignIn(props) {
     }
   };
   return (
+    !props.userReducer.currentUser ?
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -170,10 +171,18 @@ function SignIn(props) {
         <Copyright />
       </Box>
     </Container>
+    :
+    <Redirect to={`/`}/>
   );
+}
+
+var mapStateToProps = (state) => {
+  return {
+    userReducer: state.userReducer
+  }
 }
 
 var actions = {
   setCurrentUser,
 };
-export default connect(null, actions)(SignIn);
+export default connect(mapStateToProps, actions)(SignIn);
