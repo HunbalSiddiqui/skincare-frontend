@@ -18,6 +18,7 @@ import FeedbackRoundedIcon from "@material-ui/icons/FeedbackRounded";
 import { Link as RouteLink } from "react-router-dom";
 import { connect } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { userLogout } from "../../Redux/userReducer/userReducerActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,14 +39,19 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
   const classes = useStyles();
   const [openDrawer, setopenDrawer] = useState(false);
-  const [currentUser, setcurrentUser] = useState(null);
+  const [currentUserLocal, setcurrentUserLocal] = useState(null);
   const handleDrawer = (command) => {
     setopenDrawer(command);
   };
   useEffect(() => {
-    setcurrentUser((prevState) => ({ currentUser: props.currentUser }));
+    setcurrentUserLocal((prevState) => (prevState = props.currentUser));
     return () => {};
   }, [props.currentUser]);
+
+  const handleLogout = () => {
+    props.userLogout();
+  };
+
   const list = () => (
     <div
       className={classes.list}
@@ -90,9 +96,9 @@ function Header(props) {
         ))}
       </List>
       <Divider />
-      {currentUser
+      {currentUserLocal
         ? ["Logout"].map((text, index) => (
-            <ListItem button key={index}>
+            <ListItem button key={index} onClick={handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
@@ -137,4 +143,8 @@ var mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+var actions = {
+  userLogout,
+};
+
+export default connect(mapStateToProps, actions)(Header);

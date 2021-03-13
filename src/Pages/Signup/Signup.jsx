@@ -68,7 +68,13 @@ export default function SignUp() {
       [name]: value,
     }));
   };
-
+  fetch(`https://jsonplaceholder.typicode.com/users`)
+  .then((response)=>{
+    console.log(response)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
   const handleSignup = async () => {
     setLoader(true)
     const userDetails = {

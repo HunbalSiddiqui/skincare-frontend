@@ -11,7 +11,7 @@ export const userSignup = (userDetails) => {
             return response.data
         })
         .catch((err) => {
-            return err
+            return err.response.data
         })
 }
 
@@ -23,7 +23,7 @@ export const userSignin = (credentials) => {
             return response.data
         })
         .catch((err) => {
-            return err
+            return err.response.data
         })
 }
 
@@ -32,7 +32,7 @@ export const userSignin = (credentials) => {
 //     .then((response)=>{
 
 //     })
-    
+
 // }
 
 
