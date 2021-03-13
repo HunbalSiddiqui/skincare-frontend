@@ -15,15 +15,18 @@ export var setCurrentUser = (user) => {
 export var userLogout = () => {
     return async (dispatch,getState) => {
         try {
-            console.log(localStorage.getItem('jwt'))
             if(localStorage.getItem('jwt'))
             {
                 localStorage.removeItem('jwt')
                 dispatch(setCurrentUser(null))
+                return {
+                    Message : "User logged out successfully",
+                    type : true
+                }
             }
         } catch (error) {
             return {
-                message : "Unable to logout this user",
+                Message : "Unable to logout this user",
                 type : false
             }
         }

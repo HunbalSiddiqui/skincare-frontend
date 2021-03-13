@@ -15,7 +15,7 @@ import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import PersonAddRoundedIcon from "@material-ui/icons/PersonAddRounded";
 import ReportProblemRoundedIcon from "@material-ui/icons/ReportProblemRounded";
 import FeedbackRoundedIcon from "@material-ui/icons/FeedbackRounded";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { userLogout } from "../../Redux/userReducer/userReducerActions";
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header(props) {
   const classes = useStyles();
+  let history = useHistory();
   const [openDrawer, setopenDrawer] = useState(false);
   const [currentUserLocal, setcurrentUserLocal] = useState(null);
   const handleDrawer = (command) => {
@@ -49,7 +50,14 @@ function Header(props) {
   }, [props.currentUser]);
 
   const handleLogout = () => {
-    props.userLogout();
+    props.userLogout()
+    .then((response)=>{
+      if (!response.type) alert(`${response.Message}`);
+      else  history.push("/signin");
+    })
+    .catch(err=>{
+      console.log(err)
+    });
   };
 
   const list = () => (

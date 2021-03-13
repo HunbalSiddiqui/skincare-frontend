@@ -27,14 +27,6 @@ export const userSignin = (credentials) => {
         })
 }
 
-// export const userSignout = (next) => {
-//     return axios.get(`${API}/users/auth/signout`)
-//     .then((response)=>{
-
-//     })
-
-// }
-
 
 export const Authenticate = (user, next) => {
     if (typeof window !== "undefined") {
