@@ -19,7 +19,7 @@ import { Link as RouteLink, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { userLogout } from "../../Redux/userReducer/userReducerActions";
-
+import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -50,14 +50,15 @@ function Header(props) {
   }, [props.currentUser]);
 
   const handleLogout = () => {
-    props.userLogout()
-    .then((response)=>{
-      if (!response.type) alert(`${response.Message}`);
-      else  history.push("/signin");
-    })
-    .catch(err=>{
-      console.log(err)
-    });
+    props
+      .userLogout()
+      .then((response) => {
+        if (!response.type) alert(`${response.Message}`);
+        else history.push("/signin");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const list = () => (
@@ -68,25 +69,49 @@ function Header(props) {
       }}
     >
       <List>
-        {["Login", "Create Your Account"].map((text, index) => (
-          <RouteLink
-            to={index % 2 !== 0 ? `/signup` : `/signin`}
-            style={{ color: "inherit" }}
-            key={index}
-          >
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 !== 0 ? (
-                  <PersonAddRoundedIcon />
-                ) : (
-                  <AccountCircleRoundedIcon />
-                )}
-              </ListItemIcon>
+        {
+          currentUserLocal ? 
+          ["Profile", "Favorites"].map((text, index) => (
+            <RouteLink
+              to={index % 2 !== 0 ? `/favorites` : `/profile`}
+              style={{ color: "inherit" }}
+              key={index}
+            >
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 !== 0 ? (
+                    <FavoriteBorderRoundedIcon />
+                  ) : (
+                    <AccountCircleRoundedIcon />
+                  )}
+                </ListItemIcon>
+  
+                <ListItemText primary={text} />
+              </ListItem>
+            </RouteLink>
+          ))
+          :
+          ["Login", "Create Your Account"].map((text, index) => (
+            <RouteLink
+              to={index % 2 !== 0 ? `/signup` : `/signin`}
+              style={{ color: "inherit" }}
+              key={index}
+            >
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 !== 0 ? (
+                    <PersonAddRoundedIcon />
+                  ) : (
+                    <AccountCircleRoundedIcon />
+                  )}
+                </ListItemIcon>
+  
+                <ListItemText primary={text} />
+              </ListItem>
+            </RouteLink>
+          ))
+        }
 
-              <ListItemText primary={text} />
-            </ListItem>
-          </RouteLink>
-        ))}
       </List>
       <Divider />
       <List>
@@ -104,16 +129,18 @@ function Header(props) {
         ))}
       </List>
       <Divider />
-      {currentUserLocal
-        ? ["Logout"].map((text, index) => (
-            <ListItem button key={index} onClick={handleLogout}>
-              <ListItemIcon>
-                <ExitToAppIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))
-        : null}
+      <List>
+        {currentUserLocal
+          ? ["Logout"].map((text, index) => (
+              <ListItem button key={index} onClick={handleLogout}>
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))
+          : null}
+      </List>
     </div>
   );
 
