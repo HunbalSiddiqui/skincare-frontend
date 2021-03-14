@@ -19,7 +19,7 @@ import { Link as RouteLink, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { userLogout } from "../../Redux/userReducer/userReducerActions";
-import FavoriteBorderRoundedIcon from '@material-ui/icons/FavoriteBorderRounded';
+import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -69,49 +69,45 @@ function Header(props) {
       }}
     >
       <List>
-        {
-          currentUserLocal ? 
-          ["Profile", "Favorites"].map((text, index) => (
-            <RouteLink
-              to={index % 2 !== 0 ? `/favorites` : `/profile`}
-              style={{ color: "inherit" }}
-              key={index}
-            >
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 !== 0 ? (
-                    <FavoriteBorderRoundedIcon />
-                  ) : (
-                    <AccountCircleRoundedIcon />
-                  )}
-                </ListItemIcon>
-  
-                <ListItemText primary={text} />
-              </ListItem>
-            </RouteLink>
-          ))
-          :
-          ["Login", "Create Your Account"].map((text, index) => (
-            <RouteLink
-              to={index % 2 !== 0 ? `/signup` : `/signin`}
-              style={{ color: "inherit" }}
-              key={index}
-            >
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 !== 0 ? (
-                    <PersonAddRoundedIcon />
-                  ) : (
-                    <AccountCircleRoundedIcon />
-                  )}
-                </ListItemIcon>
-  
-                <ListItemText primary={text} />
-              </ListItem>
-            </RouteLink>
-          ))
-        }
+        {currentUserLocal
+          ? ["Profile", "Favorites"].map((text, index) => (
+              <RouteLink
+                to={index % 2 !== 0 ? `/favorites` : `/profile`}
+                style={{ color: "inherit" }}
+                key={index}
+              >
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 !== 0 ? (
+                      <FavoriteBorderRoundedIcon />
+                    ) : (
+                      <AccountCircleRoundedIcon />
+                    )}
+                  </ListItemIcon>
 
+                  <ListItemText primary={text} />
+                </ListItem>
+              </RouteLink>
+            ))
+          : ["Login", "Create Your Account"].map((text, index) => (
+              <RouteLink
+                to={index % 2 !== 0 ? `/signup` : `/signin`}
+                style={{ color: "inherit" }}
+                key={index}
+              >
+                <ListItem button key={text}>
+                  <ListItemIcon>
+                    {index % 2 !== 0 ? (
+                      <PersonAddRoundedIcon />
+                    ) : (
+                      <AccountCircleRoundedIcon />
+                    )}
+                  </ListItemIcon>
+
+                  <ListItemText primary={text} />
+                </ListItem>
+              </RouteLink>
+            ))}
       </List>
       <Divider />
       <List>
@@ -154,9 +150,11 @@ function Header(props) {
               handleDrawer(true);
             }}
           />
-          <Typography variant="h6" color="inherit" noWrap>
-            Daily Blog Times
-          </Typography>
+          <RouteLink to={`/`} className="pointer white">
+            <Typography variant="h6" color="inherit" noWrap>
+              Daily Blog Times
+            </Typography>
+          </RouteLink>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer

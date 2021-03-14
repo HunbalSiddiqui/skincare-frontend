@@ -7,6 +7,7 @@ import {  useEffect} from 'react';
 import {  isAuthenticated} from './Server/APIServerCalls';
 import {setCurrentUser} from "./Redux/userReducer/userReducerActions"
 import { connect } from 'react-redux';
+import ViewProfile from './Pages/ViewProfile/ViewProfile';
 function App(props) {
   const {setCurrentUser} = props
   useEffect(() => {
@@ -22,8 +23,9 @@ function App(props) {
   return ( <div >
     <Switch >
       <Route path = '/' component = {Home}exact />
-      <Route path = '/signin' component = { SignIn} exact />
-      <Route path = '/signup' component = {Signup}exact />
+      <Route path = '/signin' component = {SignIn} exact />
+      <Route path = '/signup' component = {Signup} exact />
+      <Route path = '/profile' component = {ViewProfile} exact />
     </Switch>
      </div>
   );
