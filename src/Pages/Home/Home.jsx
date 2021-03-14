@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import BlogCart from "../../Components/BlogCart/BlogCart";
+import Slideshow from "../../Components/ZoomCarousel/ZoomCarousel";
 
 function Copyright() {
   return (
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    // padding: theme.spacing(8, 0, 6),
+    padding: '0',
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -77,8 +79,9 @@ export default function Album() {
       <CssBaseline />
       <main>
         {/* Hero unit */}
-        <div className={classes.heroContent}>
-          <Container maxWidth="md">
+        <Container className={classes.heroContent} >
+          <Slideshow />
+          {/* <Container maxWidth="md">
             <Typography
               component="h1"
               variant="h2"
@@ -113,7 +116,8 @@ export default function Album() {
               </Grid>
             </div>
           </Container>
-        </div>
+         */}
+        </Container>
 
         <Container className={classes.cardGrid} width="md" maxWidth="lg">
           {/* End hero unit */}
