@@ -1,5 +1,5 @@
 import './App.css';
-import {  Route,  Switch} from 'react-router-dom'
+import {  Redirect, Route,  Switch} from 'react-router-dom'
 import Signup from './Pages/Signup/Signup';
 import SignIn from './Pages/Signin/Signin';
 import Home from './Pages/Home/Home';
@@ -25,7 +25,8 @@ function App(props) {
       <Route path = '/' component = {Home}exact />
       <Route path = '/signin' component = {SignIn} exact />
       <Route path = '/signup' component = {Signup} exact />
-      <Route path = '/profile' component = {ViewProfile} exact />
+      <Redirect exact from = "/profile" to="/profile/view"/>
+      <Route path = '/profile/:uid' component = {ViewProfile} exact />
     </Switch>
      </div>
   );

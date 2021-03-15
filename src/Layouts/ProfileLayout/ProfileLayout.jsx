@@ -5,6 +5,7 @@ import PersonOutlinedIcon from "@material-ui/icons/PersonOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import SettingsApplicationsOutlinedIcon from "@material-ui/icons/SettingsApplicationsOutlined";
 import CheckBoxOutlineBlankOutlinedIcon from "@material-ui/icons/CheckBoxOutlineBlankOutlined";
+import ProfileNavTab from "../../Components/ProfileNavTab/ProfileNavTab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,7 +61,7 @@ function ProfileLayout() {
               bgcolor: "#192A56",
               color: "white",
               icon: <FavoriteBorderOutlinedIcon />,
-              label: "Favorites",
+              label: "Manage Blogs",
               full: true
             },
           ].map((btnDet,index) => {
@@ -78,8 +79,11 @@ function ProfileLayout() {
         </Grid>
       </Hidden>
       <Hidden smUp={true}>
-
+        <Grid item xs={12} className={classes.mobileNav}>
+          <ProfileNavTab/>
+        </Grid>
       </Hidden>
+      
       <Grid item xs={12} sm={8} md={10}>
         <Paper className={classes.paper}>xs=12 sm=8</Paper>
       </Grid>

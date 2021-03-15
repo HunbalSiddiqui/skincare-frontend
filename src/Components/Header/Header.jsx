@@ -72,7 +72,7 @@ function Header(props) {
         {currentUserLocal
           ? ["Profile", "Favorites"].map((text, index) => (
               <RouteLink
-                to={index % 2 !== 0 ? `/favorites` : `/profile`}
+                to={index % 2 !== 0 ? `/favorites` : `/profile/view`}
                 style={{ color: "inherit" }}
                 key={index}
               >
