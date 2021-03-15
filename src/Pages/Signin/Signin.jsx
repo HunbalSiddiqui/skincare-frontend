@@ -84,7 +84,7 @@ function SignIn(props) {
         });
       }
     } catch (error) {
-      alert(`${error}`);
+      alert(`Server down.`);
     }
   };
   return (

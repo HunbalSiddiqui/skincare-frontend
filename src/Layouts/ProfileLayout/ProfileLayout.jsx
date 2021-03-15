@@ -78,49 +78,7 @@ function ProfileLayout() {
         </Grid>
       </Hidden>
       <Hidden smUp={true}>
-        <Grid item xs={12} className={classes.mobileNav}>
-          {[
-            {
-              bgcolor: "#25CCF7",
-              color: "white",
-              icon: <PersonOutlinedIcon />,
-              label: "View Profile",
-              full: false
-            },
-            {
-              bgcolor: "#192A56",
-              color: "white",
-              icon: <SettingsApplicationsOutlinedIcon />,
-              label: "Profile Setting",
-              full: false
-            },
-            {
-              bgcolor: "#25CCF7",
-              color: "white",
-              icon: <CheckBoxOutlineBlankOutlinedIcon />,
-              label: "Your Blogs",
-              full: false
-            },
-            {
-              bgcolor: "#192A56",
-              color: "white",
-              icon: <FavoriteBorderOutlinedIcon />,
-              label: "Favorites",
-              full: false
-            },
-          ].map((btnDet,index) => {
-            return (
-              <ProfileNavButton
-                bgcolor={`${btnDet.bgcolor}`}
-                color={`${btnDet.color}`}
-                icon={btnDet.icon}
-                label={`${btnDet.label}`}
-                full={btnDet.full}
-                key={index}
-              />
-            );
-          })}
-        </Grid>
+
       </Hidden>
       <Grid item xs={12} sm={8} md={10}>
         <Paper className={classes.paper}>xs=12 sm=8</Paper>
