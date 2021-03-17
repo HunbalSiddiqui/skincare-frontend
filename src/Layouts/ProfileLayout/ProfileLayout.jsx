@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProfileLayout() {
+function ProfileLayout(props) {
   const classes = useStyles();
   return (
     <Grid container>
@@ -41,28 +41,32 @@ function ProfileLayout() {
               color: "white",
               icon: <PersonOutlinedIcon />,
               label: "View Profile",
-              full: true
+              full: true,
+              subroute: "view"
             },
             {
               bgcolor: "#192A56",
               color: "white",
               icon: <SettingsApplicationsOutlinedIcon />,
               label: "Profile Setting",
-              full: true
+              full: true,
+              subroute: "profilesetting"
             },
             {
               bgcolor: "#25CCF7",
               color: "white",
               icon: <CheckBoxOutlineBlankOutlinedIcon />,
               label: "Your Blogs",
-              full: true
+              full: true,
+              subroute: "yourblogs"
             },
             {
               bgcolor: "#192A56",
               color: "white",
               icon: <FavoriteBorderOutlinedIcon />,
               label: "Manage Blogs",
-              full: true
+              full: true,
+              subroute: "manageblogs"
             },
           ].map((btnDet,index) => {
             return (
@@ -73,6 +77,7 @@ function ProfileLayout() {
                 label={`${btnDet.label}`}
                 full={btnDet.full}
                 key={index}
+                subroute={`${btnDet.subroute}`}
               />
             );
           })}
@@ -85,7 +90,8 @@ function ProfileLayout() {
       </Hidden>
       
       <Grid item xs={12} sm={8} md={10}>
-        <Paper className={classes.paper}>xs=12 sm=8</Paper>
+        {props.children}
+        {/* <Paper className={classes.paper}>xs=12 sm=8</Paper> */}
       </Grid>
     </Grid>
   );

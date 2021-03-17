@@ -44,3 +44,19 @@ export const isAuthenticated = () => {
     }
     return false
 }
+
+export const getUserDetails = () => {
+    const user = JSON.parse(localStorage.getItem("jwt")).user
+    const token = JSON.parse(localStorage.getItem("jwt")).token
+    return axios.get(`https://dbtimes.herokuapp.com/api/v1/users/${user.id}`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then((response)=>{
+        return response.data
+    })
+    .catch((err)=>{
+        return err.response
+    })
+}

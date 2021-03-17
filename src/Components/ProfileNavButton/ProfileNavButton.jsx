@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   button: (props) => ({
     marginBottom: theme.spacing(2),
@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfileNavButton(props) {
   const classes = useStyles(props);
-  const {label, icon, full} = props
+  const {label, icon, full, subroute} = props
   return (
-    <div>
+    <Link to={`/profile/${subroute}`}>
       <Button
         variant="contained"
         className={classes.button}
@@ -25,6 +25,6 @@ export default function ProfileNavButton(props) {
       >
         {label}
       </Button>
-    </div>
+    </Link>
   );
 }

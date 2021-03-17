@@ -14,9 +14,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import KeyboardBackspaceRoundedIcon from "@material-ui/icons/KeyboardBackspaceRounded";
 import { Link as RouteLink, Redirect, useHistory } from "react-router-dom";
-import { Authenticate, userSignin } from "../../Server/APIServerCalls";
+import {
+  Authenticate,
+  getUserDetails,
+  userSignin,
+} from "../../Server/APIServerCalls";
 import { connect } from "react-redux";
-import { setCurrentUser } from "../../Redux/userReducer/userReducerActions";
+import {
+  setCurrentUser,
+  setUserDetails,
+} from "../../Redux/userReducer/userReducerActions";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -78,17 +85,24 @@ function SignIn(props) {
       const response = await userSignin(userDetails);
       if (!response.type) alert(`${response.Message}`);
       else {
-        Authenticate({ user: response.user, token: response.token }, () => {
-          props.setCurrentUser({ user: response.user, token: response.token })
-          history.push("/");
-        });
+        Authenticate(
+          { user: response.user, token: response.token },
+          async () => {
+            props.setCurrentUser({
+              user: response.user,
+              token: response.token,
+            });
+            const userDetails = await getUserDetails();
+            props.setUserDetails(userDetails);
+            history.push("/");
+          }
+        );
       }
     } catch (error) {
       alert(`Server down.`);
     }
   };
-  return (
-    !props.userReducer.currentUser ?
+  return !props.userReducer.currentUser ? (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -171,18 +185,19 @@ function SignIn(props) {
         <Copyright />
       </Box>
     </Container>
-    :
-    <Redirect to={`/`}/>
+  ) : (
+    <Redirect to={`/`} />
   );
 }
 
 var mapStateToProps = (state) => {
   return {
-    userReducer: state.userReducer
-  }
-}
+    userReducer: state.userReducer,
+  };
+};
 
 var actions = {
   setCurrentUser,
+  setUserDetails,
 };
 export default connect(mapStateToProps, actions)(SignIn);

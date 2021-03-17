@@ -4,22 +4,26 @@ import Signup from './Pages/Signup/Signup';
 import SignIn from './Pages/Signin/Signin';
 import Home from './Pages/Home/Home';
 import {  useEffect} from 'react';
-import {  isAuthenticated} from './Server/APIServerCalls';
-import {setCurrentUser} from "./Redux/userReducer/userReducerActions"
+import {  getUserDetails, isAuthenticated} from './Server/APIServerCalls';
+import {setCurrentUser,setUserDetails} from "./Redux/userReducer/userReducerActions"
 import { connect } from 'react-redux';
 import ViewProfile from './Pages/ViewProfile/ViewProfile';
 function App(props) {
-  const {setCurrentUser} = props
   useEffect(() => {
     if (isAuthenticated()) {
       const response = isAuthenticated()
-      setCurrentUser({
+      props.setCurrentUser({
         user: response.user,
         token: response.token
       })
+      saveUserDetails()
     }
     return () => {}
   }, [])
+  const saveUserDetails = async() => {
+    const userDetails = await getUserDetails()
+    props.setUserDetails(userDetails)
+  }
   return ( <div >
     <Switch >
       <Route path = '/' component = {Home}exact />
@@ -31,8 +35,13 @@ function App(props) {
      </div>
   );
 }
-
+var mapStateToProps = (state) => {
+  return {
+    currentUser: state.userReducer.currentUser
+  }
+}
 var actions = {
   setCurrentUser,
+  setUserDetails
 };
-export default connect(null,actions)(App);
+export default connect(mapStateToProps,actions)(App);
