@@ -8,6 +8,11 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     padding: "2rem 2rem",
   },
+  textFlies: {
+    "& .MuiInputBase-root.Mui-disabled": {
+      color: "rgba(0, 0, 0, 1)", // (default alpha is 0.38)
+    },
+  },
 }));
 
 function ViewProfile(props) {
@@ -34,6 +39,7 @@ function ViewProfile(props) {
               autoComplete="fname"
               disabled
               value={userDetailsLocal.name}
+              className={classes.textFlies}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -47,6 +53,7 @@ function ViewProfile(props) {
               autoComplete="email"
               value={userDetailsLocal.email}
               disabled
+              className={classes.textFlies}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -60,6 +67,7 @@ function ViewProfile(props) {
               autoComplete="phone"
               value={userDetailsLocal.phone}
               disabled
+              className={classes.textFlies}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -73,6 +81,7 @@ function ViewProfile(props) {
               autoComplete="role"
               value={userDetailsLocal.role}
               disabled
+              className={classes.textFlies}
             />
           </Grid>
         </Grid>
